@@ -177,6 +177,3 @@ Un trabajador registra horas extras excesivas, superando los límites establecid
 **Salida esperada:**  
 - **Error:** "No se pueden registrar más de 80 horas extras en un mes según la legislación laboral."  
 
----
-
-Este formato te permitirá leer y entender más fácilmente cada caso de prueba. ¡Déjame saber si necesitas ajustes! 😊
