@@ -175,5 +175,25 @@ Un trabajador registra horas extras excesivas, superando los límites establecid
 - Si las horas extras superan 80 horas al mes, lanzar una excepción.  
 
 **Salida esperada:**  
-- **Error:** "No se pueden registrar más de 80 horas extras en un mes según la legislación laboral."  
+- **Error:** "No se pueden registrar más de 80 horas extras en un mes según la legislación laboral."
+
+  ---
+
+  **Caso 10**
+**Descripción:**
+Un trabajador no tiene afiliación a salud o pensión, lo que impide realizar las deducciones obligatorias.
+
+**Entradas:**
+Salario base mensual: $3.000.000
+Deducción por salud: 0% (sin afiliación)
+Deducción por pensión: 0% (sin afiliación)
+
+**Procedimiento:**
+Verificar que el empleado tenga afiliación a salud y pensión.
+Si no tiene afiliación, lanzar una excepción.
+
+
+Salida esperada:
+Error: "El trabajador debe estar afiliado a salud y pensión para calcular la nómina."
+Ejecución interrumpida.
 
