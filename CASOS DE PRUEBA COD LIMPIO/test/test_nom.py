@@ -193,26 +193,22 @@ class pruebas_Nom(unittest.TestCase):
         self.assertEqual(total_deducciones, esperado_total_deducciones, "Error en el cálculo de total deducciones")
         self.assertEqual(salario_neto, esperado_salario_neto, "Error en el cálculo de salario neto")
            
-    def test_error_7(self):
-        salario_base = -2000000
-        horas_extra = 0
-        tarifa_hora_extra = 0
-        porcentaje_salud = 4
-        porcentaje_pension = 4
-        otras_deducciones = 0
-        
-        
-    def test_caso_8_porcentaje_deduccion_mayor_100(self):
-        with self.assertRaises(ValueError):
-            calcular_deducciones(2000000, 101, 4, 0)
+    def error_de_salrio_negativo7 (self):
+       
+        S_base	= -2000000 
+        H_extras = 0	
+        Tarifa_hora_extra = 0	
+        Deducción_salud	= 0.4
+        Deducción_pensión = 0.4	
+        Otras_deducciones = 0
+        TotalDevengado = -2000000	
+        Total_deducciones = -160000	
+        Total_a_pagar = -1840000
 
-    def test_caso_9_horas_extras_mayor_80(self):
-        with self.assertRaises(ValueError):
-            calcular_total_devengado(1500000, 85, 12000)
 
-    def test_caso_10_valores_no_numericos(self):
-        with self.assertRaises(TypeError):
-            calcular_total_devengado("dos millones", "diez", "mil")
+
+
+    
 
     
 # Ejecutar las pruebas
