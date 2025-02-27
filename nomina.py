@@ -1,5 +1,5 @@
 class ErrorValorSalario(Exception): #entre
-    pass
+    """El salario base no puede ser negativo"""
 
 class ErrorHorasExtras(Exception):
     pass
@@ -36,8 +36,19 @@ def calcular_deducciones(salario_base, porcentaje_salud, porcentaje_pension, otr
     return deduccion_salud + deduccion_pension + otras_deducciones
 
 def calcular_salario_neto(total_devengado, total_deducciones):
+    """
+    Calcula el salario neto después de aplicar deducciones.
+
+    - Si el total devengado es 0, el salario neto será negativo debido a las deducciones.
+    - Si el total devengado es mayor que 0, las deducciones no pueden ser mayores al devengado.
+    """
+    if total_devengado == 0:
+        # Permitir que el salario neto sea negativo si hay deducciones sin devengado
+        return -total_deducciones  
+    
     if total_deducciones > total_devengado:
         raise ValueError("Las deducciones no pueden ser mayores que el total devengado")
+    
     return total_devengado - total_deducciones
 
 

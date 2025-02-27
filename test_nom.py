@@ -4,6 +4,7 @@ import unittest
 import nomina
 
 from nomina import calcular_total_devengado, calcular_deducciones, calcular_salario_neto
+from nomina import ErrorValorSalario 
 #crear clase con casos de prueba 
 
 class pruebas_Nom(unittest.TestCase):
@@ -194,21 +195,20 @@ class pruebas_Nom(unittest.TestCase):
         self.assertEqual(total_deducciones, esperado_total_deducciones, "Error en el cálculo de total deducciones")
         self.assertEqual(salario_neto, esperado_salario_neto, "Error en el cálculo de salario neto")
            
-    def error_valor_salario7 (self):
+    def test_caso_7(self):
+        # Caso 7: Verifica que se lance una excepción cuando el salario base es negativo.
         salario_base = -2000000 
-        horas_extras = 0	
+        horas_extra = 0	
         tarifa_hora_extra = 0	
-        Deducción_salud	= 0.4
-        Deducción_pensión = 0.4	
-        Otras_deducciones = 0
-        TotalDevengado = -2000000	
-        Total_deducciones = -160000	
-        Total_a_pagar = -1840000
+        
+        with self.assertRaises(ErrorValorSalario):
+            calcular_total_devengado(salario_base, horas_extra, tarifa_hora_extra)
+            
+    
+        
+            
 
-        with self.assertRaises(nomina.ErrorValorSalario):
-            calcular_total_devengado(salario_base, horas_extras, tarifa_hora_extra)
-            pass
-
+            
 # Ejecutar las pruebas
 if __name__ == '__main__':
     unittest.main()
