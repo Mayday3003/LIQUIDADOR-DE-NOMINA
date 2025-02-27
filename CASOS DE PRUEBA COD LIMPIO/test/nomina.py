@@ -1,4 +1,4 @@
-class ErrorValorSalario(Exception):
+class ErrorValorSalario(Exception):  #entro juanjo
     """Excepción personalizada cuando el salario base es menor o igual a cero."""
     
 def calcular_total_devengado(salario_base, horas_extras, tarifa_hora_extra):
