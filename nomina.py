@@ -1,4 +1,4 @@
-class ErrorValorSalario(Exception):
+class ErrorValorSalario(Exception): #entre
     pass
 
 class ErrorHorasExtras(Exception):
