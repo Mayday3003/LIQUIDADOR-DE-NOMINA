@@ -4,7 +4,7 @@ import unittest
 import nomina
 
 from nomina import calcular_total_devengado, calcular_deducciones, calcular_salario_neto
-from nomina import ErrorValorSalario 
+from nomina import ErrorValorSalario, ErrorPorcentajeDeduccion, ErrorHorasExtras, ErrorAfiliacion
 #crear clase con casos de prueba 
 
 class pruebas_Nom(unittest.TestCase):
@@ -196,19 +196,43 @@ class pruebas_Nom(unittest.TestCase):
         self.assertEqual(salario_neto, esperado_salario_neto, "Error en el cálculo de salario neto")
            
     def test_caso_7(self):
-        # Caso 7: Verifica que se lance una excepción cuando el salario base es negativo.
+        """Excepción personalizada para valores de salario inválidos del salario base."""
         salario_base = -2000000 
         horas_extra = 0	
         tarifa_hora_extra = 0	
         
         with self.assertRaises(ErrorValorSalario):
             calcular_total_devengado(salario_base, horas_extra, tarifa_hora_extra)
-            
-    
         
+    def test_caso_8(self):
+        """Caso 8: Verifica que se lance una excepción si el porcentaje de deducción es mayor al 100%"""
+        salario_base = 3000000  # Salario base
+        porcentaje_salud = 110  # Deducción inválida
+        porcentaje_pension = 4
+        otras_deducciones = 0
+        
+        with self.assertRaises(ErrorPorcentajeDeduccion):
+            calcular_deducciones(salario_base, porcentaje_salud, porcentaje_pension, otras_deducciones)
             
+    def test_caso_9(self):
+        """Caso 9: Verifica que se lance una excepción si las horas extras superan 80."""
+        salario_base = 2500000  # Salario base
+        horas_extras = 150  # 🔹 Exceso de horas extras
+        tarifa_hora_extra = 15000
 
+        with self.assertRaises(ErrorHorasExtras):
+            calcular_total_devengado(salario_base, horas_extras, tarifa_hora_extra)
             
+    def test_caso_10(self):
+        """Caso 10: Verifica que se lance una excepción si el trabajador no está afiliado a salud y pensión."""
+        salario_base = 3000000  # Salario base
+        porcentaje_salud = 0  # 🔹 Sin afiliación a salud
+        porcentaje_pension = 0  # 🔹 Sin afiliación a pensión
+        otras_deducciones = 0
+
+        with self.assertRaises(ErrorAfiliacion):
+            calcular_deducciones(salario_base, porcentaje_salud, porcentaje_pension, otras_deducciones)
+
 # Ejecutar las pruebas
 if __name__ == '__main__':
     unittest.main()

@@ -1,17 +1,19 @@
-class ErrorValorSalario(Exception): #entre
-    """El salario base no puede ser negativo"""
-
+class ErrorValorSalario(Exception): 
+    
+    "Excepción personalizada para valores de salario inválidos."
+    
 class ErrorHorasExtras(Exception):
-    pass
-
-class ErrorTarifaHoraExtra(Exception):
-    pass
-
+    
+    """Verifica que se lance una excepción si las horas extras superan 80."""
+  
+class ErrorAfiliacion(Exception):
+    """
+    Excepción para trabajadores sin afiliación a salud y pensión.
+    """
+    
 class ErrorPorcentajeDeduccion(Exception):
-    pass
-
-class ErrorValorDeduccion(Exception):
-    pass
+    """El porcentaje no puede ser mayor a 100"""
+    
     
 def calcular_total_devengado(salario_base, horas_extras, tarifa_hora_extra):
     
@@ -19,8 +21,10 @@ def calcular_total_devengado(salario_base, horas_extras, tarifa_hora_extra):
         raise ErrorValorSalario("El valor del salario debe ser mayor que cero")
     if horas_extras < 0:
         raise ErrorHorasExtras("Las horas extras no pueden ser negativas")
+    if horas_extras > 80:
+        raise ErrorHorasExtras("Las horas extras no pueden ser mayor a 80")
     if tarifa_hora_extra < 0:
-        raise ErrorTarifaHoraExtra("La tarifa de hora extra no puede ser negativa")
+        raise ErrorHorasExtras("La tarifa de hora extra no puede ser negativa")
     
     return salario_base + (horas_extras * tarifa_hora_extra)
     
@@ -28,8 +32,15 @@ def calcular_deducciones(salario_base, porcentaje_salud, porcentaje_pension, otr
     
     if porcentaje_salud < 0 or porcentaje_pension < 0:
         raise ErrorPorcentajeDeduccion("Los porcentajes de deducción no pueden ser negativos")
+    
+    if porcentaje_salud == 0 and porcentaje_pension == 0:
+        raise ErrorAfiliacion("Excepción para trabajadores sin afiliación a salud y pensión")
+    
+    if porcentaje_salud > 100 or porcentaje_pension > 100:
+        raise ErrorPorcentajeDeduccion("El porcentaje de deducción no puede ser mayor al 100% del salario")
+    
     if otras_deducciones < 0:
-        raise ErrorValorDeduccion("Las otras deducciones no pueden ser negativas")
+        raise ErrorPorcentajeDeduccion("Las otras deducciones no pueden ser negativas")
     
     deduccion_salud = (porcentaje_salud / 100) * salario_base
     deduccion_pension = (porcentaje_pension / 100) * salario_base
