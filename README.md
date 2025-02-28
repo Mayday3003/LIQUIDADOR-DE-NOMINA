@@ -1,3 +1,8 @@
+JUAN JOSE CANO GIRALDO 
+SIMON MUÑOZ MONTOYA 
+PROYECTO
+
+
 **Proyecto: Liquidador de Nómina**  
 
 Se requiere una aplicación que calcule el total a pagar a un empleado que trabaja para una empresa, el cual corresponde a la diferencia entre los valores devengados y las deducciones de ley que le aplican.  
