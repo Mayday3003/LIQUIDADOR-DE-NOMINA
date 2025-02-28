@@ -1,51 +1,27 @@
 # excepciones.py (Nuevo archivo para excepciones)
 class ErrorValorSalario(Exception):
-    """
-    Excepción personalizada para valores de salario inválidos.
-    """
-    def __init__(self, salario):
-        super().__init__(f"El valor del salario debe ser mayor que cero. Recibido: {salario}")
-
+    """Error cuando el salario base no es válido."""
+    pass
 
 class ErrorHorasExtras(Exception):
-    """
-    Excepción para valores inválidos de horas extras.
-    """
-    def __init__(self, horas_extras):
-        super().__init__(f"No se pueden registrar más de 80 horas extras en un mes según la legislación laboral. Recibido: {horas_extras}")
-
+    """Error cuando las horas extras son inválidas."""
+    pass
 
 class ErrorTarifaHoraExtra(Exception):
-    """
-    Excepción para tarifas de horas extras inválidas.
-    """
-    def __init__(self, tarifa):
-        super().__init__(f"La tarifa de horas extras debe ser mayor que cero. Recibido: {tarifa}")
-
+    """Error cuando la tarifa de hora extra es inválida."""
+    pass
 
 class ErrorPorcentajeDeduccion(Exception):
-    """
-    Excepción para porcentajes de deducción fuera del rango 0-100.
-    """
-    def __init__(self, porcentaje):
-        super().__init__(f"El porcentaje de deducción no puede ser mayor al 100%. Recibido: {porcentaje}")
-
+    """Error cuando los porcentajes de deducción son inválidos."""
+    pass
 
 class ErrorValorDeduccion(Exception):
-    """
-    Excepción para valores de deducción negativos.
-    """
-    def __init__(self, deduccion):
-        super().__init__(f"El valor de la deducción no puede ser negativo. Recibido: {deduccion}")
-
+    """Error cuando las otras deducciones son inválidas."""
+    pass
 
 class ErrorAfiliacion(Exception):
-    """
-    Excepción para trabajadores sin afiliación a salud y pensión.
-    """
-    def __init__(self, afiliacion):
-        super().__init__("El trabajador debe estar afiliado a salud y pensión para calcular la nómina.")
-
+    """Error cuando el usuario no tiene afiliación a salud ni pensión."""
+    pass
 
 def calcular_total_devengado(salario_base, horas_extras, tarifa_hora_extra):
     
