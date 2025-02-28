@@ -166,6 +166,21 @@ Un usuario intenta ingresar un salario base negativo, lo cual es un valor invál
 
 ---
 
+Caso 8 
+Descripción:
+Un usuario ingresa un porcentaje de deducción mayor al 100%, lo cual es un error ya que las deducciones de ley no pueden superar el total del salario.
+Entradas:
+Salario base mensual: $3.000.000
+Deducción por salud: 110%
+Deducción por pensión: 4%
+Procedimiento:
+Verificación inicial:
+Si cualquier porcentaje de deducción es mayor al 100%, lanzar una excepción.
+Salida esperada:
+Error: "El porcentaje de deducción no puede ser mayor al 100% del salario."
+Ejecución interrumpida.
+
+
 **Caso 9**  
 **Descripción:**  
 Un trabajador registra horas extras excesivas, superando los límites establecidos por la ley laboral en Colombia.  
