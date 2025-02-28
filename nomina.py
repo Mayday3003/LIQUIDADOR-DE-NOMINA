@@ -1,20 +1,52 @@
-class ErrorValorSalario(Exception): 
-    
-    "Excepción personalizada para valores de salario inválidos."
-    
+# excepciones.py (Nuevo archivo para excepciones)
+class ErrorValorSalario(Exception):
+    """
+    Excepción personalizada para valores de salario inválidos.
+    """
+    def __init__(self, salario):
+        super().__init__(f"El valor del salario debe ser mayor que cero. Recibido: {salario}")
+
+
 class ErrorHorasExtras(Exception):
-    
-    """Verifica que se lance una excepción si las horas extras superan 80."""
-  
+    """
+    Excepción para valores inválidos de horas extras.
+    """
+    def __init__(self, horas_extras):
+        super().__init__(f"No se pueden registrar más de 80 horas extras en un mes según la legislación laboral. Recibido: {horas_extras}")
+
+
+class ErrorTarifaHoraExtra(Exception):
+    """
+    Excepción para tarifas de horas extras inválidas.
+    """
+    def __init__(self, tarifa):
+        super().__init__(f"La tarifa de horas extras debe ser mayor que cero. Recibido: {tarifa}")
+
+
+class ErrorPorcentajeDeduccion(Exception):
+    """
+    Excepción para porcentajes de deducción fuera del rango 0-100.
+    """
+    def __init__(self, porcentaje):
+        super().__init__(f"El porcentaje de deducción no puede ser mayor al 100%. Recibido: {porcentaje}")
+
+
+class ErrorValorDeduccion(Exception):
+    """
+    Excepción para valores de deducción negativos.
+    """
+    def __init__(self, deduccion):
+        super().__init__(f"El valor de la deducción no puede ser negativo. Recibido: {deduccion}")
+
+
 class ErrorAfiliacion(Exception):
     """
     Excepción para trabajadores sin afiliación a salud y pensión.
     """
-    
-class ErrorPorcentajeDeduccion(Exception):
-    """El porcentaje no puede ser mayor a 100"""
-    
-    
+    def __init__(self, afiliacion):
+        super().__init__("El trabajador debe estar afiliado a salud y pensión para calcular la nómina.")
+
+
 def calcular_total_devengado(salario_base, horas_extras, tarifa_hora_extra):
     
     if salario_base <= 0:
