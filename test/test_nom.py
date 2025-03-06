@@ -1,10 +1,11 @@
 #Importar biblioteca unittes
-
 import unittest
-import nomina
+import sys 
+sys.path.append("src")
+import model.nomina as nomina
 
-from nomina import calcular_total_devengado, calcular_deducciones, calcular_salario_neto
-from nomina import ErrorValorSalario, ErrorPorcentajeDeduccion, ErrorHorasExtras, ErrorAfiliacion
+from model.nomina import calcular_total_devengado, calcular_deducciones, calcular_salario_neto
+from model.nomina import ErrorValorSalario, ErrorPorcentajeDeduccion, ErrorHorasExtras, ErrorAfiliacion
 #crear clase con casos de prueba 
 
 class pruebas_Nom(unittest.TestCase):

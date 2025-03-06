@@ -1,5 +1,6 @@
-
-from nomina import calcular_total_devengado, calcular_deducciones, calcular_salario_neto
+import sys 
+sys.path.append("src")
+from model.nomina import calcular_total_devengado, calcular_deducciones, calcular_salario_neto
 
 def pedir_numero(mensaje, tipo=float, min_val=None, max_val=None):
     while True:
