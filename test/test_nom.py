@@ -144,9 +144,9 @@ class pruebas_Nom(unittest.TestCase):
         otras_deducciones = 0
             
         """Valores esperados"""
-        esperado_total_devengado = 0  # No trabajó, no hay devengado
-        esperado_total_deducciones = 240000  # 4% salud + 4% pensión sobre 3.000.000
-        esperado_salario_neto = -240000  # Deuda con la empresa
+        esperado_total_devengado = 0  
+        esperado_total_deducciones = 240000  
+        esperado_salario_neto = -240000  
         
         """Cálculos"""
         total_devengado = 0

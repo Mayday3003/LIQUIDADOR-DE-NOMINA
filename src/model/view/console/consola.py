@@ -13,7 +13,7 @@ def pedir_numero(mensaje, tipo=float, min_val=None, max_val=None):
         except ValueError:
             print("❌ Entrada inválida. Intente de nuevo.")
 
-# Solicitar datos
+"""Solicitar datos"""
 salario_base = pedir_numero("Ingrese el salario base: ", min_val=1)
 horas_extras = pedir_numero("Ingrese horas extras: ", int, 0, 80)
 tarifa_hora_extra = pedir_numero("Ingrese la tarifa por hora extra: ", min_val=0)

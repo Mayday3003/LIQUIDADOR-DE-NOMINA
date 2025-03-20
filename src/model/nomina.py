@@ -1,4 +1,4 @@
-# excepciones.py (Nuevo archivo para excepciones)
+"""Excepciones"""
 class ErrorValorSalario(Exception):
     """Error cuando el salario base no es válido."""
     pass
@@ -23,7 +23,7 @@ class ErrorAfiliacion(Exception):
     """Error cuando el usuario no tiene afiliación a salud ni pensión."""
     pass
 
-# Constantes para evitar números mágicos
+"""Constantes para evitar números mágicos"""
 LIMITE_HORAS_EXTRA = 80
 PORCENTAJE_MAXIMO_DEDUCCION = 100
 
@@ -66,7 +66,7 @@ def calcular_salario_neto(total_devengado, total_deducciones):
     - Si el total devengado es mayor que 0, las deducciones no pueden ser mayores al devengado.
     """
     if total_devengado == 0:
-        # Permitir que el salario neto sea negativo si hay deducciones sin devengado
+        """Permitir que el salario neto sea negativo si hay deducciones sin devengado"""
         return -total_deducciones  
     
     if total_deducciones > total_devengado:
