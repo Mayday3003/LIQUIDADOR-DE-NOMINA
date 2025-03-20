@@ -1,15 +1,18 @@
-JUAN JOSE CANO GIRALDO 
-SIMON MUÑOZ MONTOYA 
+Autores 
+Juan jose cano giraldo
+Simon muñoz lopez
+
 PROYECTO
 
 ¿Qué es?
 
-El proyecto "Liquidador de Nómina" es una aplicación diseñada para calcular el salario neto que una empresa debe pagar a sus empleados.
-El salario base del empleado.
-Las horas extras trabajadas.
-Las deducciones de ley (salud y pensión).
-Otras deducciones adicionales.
+El proyecto es una aplicación para la liquidación de nómina que permite calcular de manera automática el pago de empleados, considerando factores como horas trabajadas, salario base y deducciones. Facilita la gestión de pagos y ayuda a reducir errores en los cálculos.
 
+✅ Propósito:
+
+Automatizar el cálculo de nómina.
+Generar reportes precisos de los pagos realizados.
+Validar datos mediante pruebas unitarias para asegurar la fiabilidad del cálculo.
 ¿Para qué es?
 
 El objetivo es garantizar que el cálculo del salario neto sea preciso, rápido y conforme a las normativas laborales. La aplicación permitirá a las empresas:
@@ -18,43 +21,58 @@ El objetivo es garantizar que el cálculo del salario neto sea preciso, rápido 
 ✅ Generar reportes detallados de los pagos realizados.
 ✅ Facilitar la gestión de pagos a empleados.
 
-Prerrequisitos
-Antes de ejecutar el proyecto, asegúrate de tener lo siguiente:
+✅ Prerrequisitos
+Antes de ejecutar el proyecto, asegúrate de tener instalados los siguientes componentes:
 
-1.Instalar Python
+Python 3.10 o superior
 
-Asegúrate de que Python esté instalado en tu sistema
-python --version
+▶️ Ejecución de la interfaz por consola
+Hay dos formas de ejecutar la aplicación desde la consola:
 
-Ejecución de pruebas 
-Metodo 1
+1.Desde la terminal
 
--Abre la terminal y navega hasta la raíz del proyecto:
-cd ruta/del/proyecto
+-Abre una terminal y Navega hasta el directorio raíz del proyecto:
 
--Ejecutar todas las pruebas
-Usa el módulo unittest para ejecutar todas las pruebas dentro de la carpeta tests:
-python -m unittest discover tests
+<img width="688" alt="image" src="https://github.com/user-attachments/assets/0c62d875-92ce-45cb-8207-5888c4b144bf" />
 
-Metodo2
--Si solo deseas ejecutar un archivo de prueba específico, usa:
-python -m unittest tests/test_nom.py
+-Ejecuta el archivo consola.py con el siguiente comando:
 
--Si estás dentro de la carpeta tests, puedes ejecutar directamente el archivo de prueba con:
-python test_nom.py
+<img width="677" alt="image" src="https://github.com/user-attachments/assets/d6d18456-19f4-4b47-a167-4af3e196a108" />
+
+2.Desde el archivo directamente
+
+-Abre el archivo consola.py desde un editor de texto o IDE (como VSCode o PyCharm).
+
+-En la parte superior de la ventana, haz clic en "Run" o "Ejecutar".
+
+-También puedes hacer clic derecho en el archivo y seleccionar "Ejecutar archivo Python".
+
+🧪 Ejecución de las pruebas
+
+Hay dos formas de ejecutar las pruebas unitarias para verificar que el código funciona correctamente:
+
+1.Desde la terminal
+
+Abre una terminal y ejecuta el siguiente comando desde el directorio raíz:
+
+<img width="679" alt="image" src="https://github.com/user-attachments/assets/b6e539be-5712-41b9-ace0-2520635653df" />
+
+2.Desde el archivo directamente
+
+-Abre el archivo test_nom.py desde un editor de texto o IDE.
+
+-En la parte superior de la ventana, haz clic en "Run" o "Ejecutar".
+
+-También puedes hacer clic derecho en el archivo y seleccionar "Ejecutar archivo Python".
+
+✅ Consejo:
+Si tienes problemas para importar módulos al ejecutar los archivos, añade esta línea al principio de consola.py y test_nom.py:
+
+<img width="676" alt="image" src="https://github.com/user-attachments/assets/aab2e442-63a2-4eeb-8df6-8b1a84785d5a" />
 
 Estructura sugerida 
-proyecto_nomina/
-├── src/                          # Código fuente de la aplicación
-│   ├── __init__.py              # Permite que Python reconozca la carpeta como un paquete
-│   ├── nomina.py                # Lógica de negocio (cálculo de salario, validación de datos)
-├── tests/                        # Pruebas unitarias
-│   ├── __init__.py              # Permite que Python reconozca la carpeta como un paquete
-│   ├── test_nom.py              # Pruebas sobre la lógica de negocio
-├── consola.py                    # Interfaz de consola para interacción con el usuario
-├── requirements.txt              # (Opcional) Lista de dependencias si fuera necesario
-├── README.md                     # Documentación del proyecto
-├── .gitignore                    # Archivos y carpetas que deben ser ignorados por Git
+
+<img width="545" alt="image" src="https://github.com/user-attachments/assets/c3aadfd8-fba8-46c5-b70f-e3de275693cf" />
 
 **Clasificación de los Casos de Prueba**  
 
