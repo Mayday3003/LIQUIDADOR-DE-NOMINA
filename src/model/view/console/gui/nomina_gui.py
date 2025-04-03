@@ -70,7 +70,7 @@ class NominaGUI(App):
         print(f"Otras Deducciones: ${otras_deducciones:.2f}")
         print(f"Total Deducciones: ${total_deducciones:.2f}")
         print(f"Salario Neto: ${salario_neto:.2f}")
-        print("============================\n")
+        print("=========================\n")
 
 if __name__ == "__main__":
     NominaGUI().run()
