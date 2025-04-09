@@ -7,6 +7,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from model.nomina import *
+from kivy.uix.popup import Popup
 
 class NominaGUI(App):
     
@@ -48,29 +49,63 @@ class NominaGUI(App):
         return self.contenedor
 
     def calcular_total_a_pagar(self, instance):
-        salario_base = float(self.salario_base.text)
-        horas_extras = float(self.horas_extras.text)
-        tarifa_hora_extra = float(self.tarifa_hora.text)
-        porcentaje_salud = float(self.deduccion_salud.text)
-        porcentaje_pension = float(self.deduccion_pension.text)
-        otras_deducciones = float(self.otras_deducciones.text)
+        try:
+            self.validar()
+            salario_base = float(self.salario_base.text)
+            horas_extras = float(self.horas_extras.text)
+            tarifa_hora_extra = float(self.tarifa_hora.text)
+            porcentaje_salud = float(self.deduccion_salud.text)
+            porcentaje_pension = float(self.deduccion_pension.text)
+            otras_deducciones = float(self.otras_deducciones.text)
 
-        total_devengado = calcular_total_devengado(salario_base, horas_extras, tarifa_hora_extra)
-        total_deducciones = calcular_deducciones(salario_base, porcentaje_salud, porcentaje_pension, otras_deducciones)
-        salario_neto = calcular_salario_neto(total_devengado, total_deducciones)
+            total_devengado = calcular_total_devengado(salario_base, horas_extras, tarifa_hora_extra)
+            total_deducciones = calcular_deducciones(salario_base, porcentaje_salud, porcentaje_pension, otras_deducciones)
+            salario_neto = calcular_salario_neto(total_devengado, total_deducciones)
 
-        self.resultado_label.text = f"Salario Neto: ${salario_neto:.2f}"
+            self.resultado_label.text = f"Salario Neto: ${salario_neto:.2f}"
+        except ValueError as err:
+            self.resultado_label.text = f"Error: {err}. Ingrese un número válido, por ejemplo, 500000.00"
+            self.mostrar_error(str(err))
+        except Exception as err:
+            self.mostrar_error(str(err))
 
-        print("\n===== Cálculo de Nómina =====")
-        print(f"Salario Base: ${salario_base:.2f}")
-        print(f"Horas Extras: {horas_extras} x ${tarifa_hora_extra:.2f} = ${horas_extras * tarifa_hora_extra:.2f}")
-        print(f"Total Devengado: ${total_devengado:.2f}")
-        print(f"Deducción Salud ({porcentaje_salud}%): ${porcentaje_salud / 100 * salario_base:.2f}")
-        print(f"Deducción Pensión ({porcentaje_pension}%): ${porcentaje_pension / 100 * salario_base:.2f}")
-        print(f"Otras Deducciones: ${otras_deducciones:.2f}")
-        print(f"Total Deducciones: ${total_deducciones:.2f}")
-        print(f"Salario Neto: ${salario_neto:.2f}")
-        print("=========================\n")
 
+    def mostrar_error( self, err ):
+        """
+        Abre una ventana emergente, con un texto y un botón para cerrar
+        Parámetros:
+        err: Mensaje de error que queremos mostrar en la ventana
+        """
+
+        # contenido es el contenedor donde vamos a agregar los widgets de la ventana
+        contenido = GridLayout(cols=1)
+        # Creamos el Label que contiene el mensaje de error
+        contenido.add_widget( Label(text= str(err) ) )
+        # Creamos el botón para cerrar la ventana
+        cerrar = Button(text="Cerrar" )
+        contenido.add_widget( cerrar )
+        # Creamos la ventana emergente con el widget Popup de Kivy
+        popup = Popup(title="Error",content=contenido)
+        # Conectamos el evento del botón con el método dismiss que cierra el popup
+        cerrar.bind( on_press=popup.dismiss)
+        # Mostramos la ventana emergente
+        popup.open()
+
+    def validar(self):
+        """
+        Verifica que todos los datos ingresados por el usuario sean correctos.
+        """
+        try:
+            # Intentamos convertir los valores a flotantes para asegurarnos de que sean válidos
+            float(self.salario_base.text)
+            float(self.horas_extras.text)
+            float(self.tarifa_hora.text)
+            float(self.deduccion_salud.text)
+            float(self.deduccion_pension.text)
+            float(self.otras_deducciones.text)
+        except ValueError:
+            # Si ocurre un error, lanzamos una excepción personalizada
+            raise ValueError("Todos los campos deben contener números válidos.")
+        
 if __name__ == "__main__":
     NominaGUI().run()
