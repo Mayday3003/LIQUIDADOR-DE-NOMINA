@@ -284,6 +284,7 @@ Salida esperada:
 Error: "El trabajador debe estar afiliado a salud y pensión para calcular la nómina."
 Ejecución interrumpida.
 
+  ---
 
  **Cómo ejecutar la interfaz gráfica (GUI)**
 **Requisitos previos**
@@ -297,7 +298,7 @@ pip install kivy
 pip install -r requirements.txt
 
  **Ejecutar la GUI**
- 
+
 Abre una terminal en la raíz del proyecto.
 
 Asegúrate de tener el archivo main.py (o el nombre del archivo que contiene el código GUI).
