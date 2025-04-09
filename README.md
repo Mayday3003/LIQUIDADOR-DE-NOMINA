@@ -3,7 +3,7 @@ Juan jose cano giraldo
 Simon muñoz lopez
 
 Entrega 3:
-Juan Fernando Castañeda Agudelo
+Juan Fernando Castañeda Agudelo--
 Maria Isabel Zuluaga
 
 PROYECTO
