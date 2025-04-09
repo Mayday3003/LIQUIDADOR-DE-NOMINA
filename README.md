@@ -1,6 +1,9 @@
 Autores 
 Juan jose cano giraldo
 Simon muñoz lopez
+Entrega 3:
+Juan Fernando Castañeda Agudelo
+Maria Isabel Zuluaga
 
 PROYECTO
 
@@ -279,3 +282,26 @@ Si no tiene afiliación, lanzar una excepción.
 Salida esperada:
 Error: "El trabajador debe estar afiliado a salud y pensión para calcular la nómina."
 Ejecución interrumpida.
+
+ Cómo ejecutar la interfaz gráfica (GUI)
+ Requisitos previos
+Antes de ejecutar la aplicación, asegúrate de tener instalado Python y los siguientes módulos:
+
+bash
+Copiar código
+pip install kivy
+ Si estás usando un archivo requirements.txt, también puedes instalar todo con:
+
+bash
+Copiar código
+pip install -r requirements.txt
+ Ejecutar la GUI
+Abre una terminal en la raíz del proyecto.
+
+Asegúrate de tener el archivo main.py (o el nombre del archivo que contiene el código GUI).
+
+Ejecuta el siguiente comando:
+
+bash
+Copiar código
+python main.py
