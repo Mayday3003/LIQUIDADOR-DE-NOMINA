@@ -72,6 +72,49 @@ class ControladorNominas:
         cursor.connection.commit()
         print("Nómina insertada correctamente.")   #EN PROCESO
         
+    def BuscarNominaPorEmpleado(empleado_id: int):
+        """ Busca una nómina de un empleado por su ID """
+        cursor = ControladorNominas.ObtenerCursor()
+
+        cursor.execute("""
+            SELECT * FROM nominas WHERE empleado_id = %s
+        """, (empleado_id,))
+        
+        fila = cursor.fetchone()
+        if fila:
+            return Nomina(
+                id=fila[0], empleado_id=fila[1], horas_extras=fila[2],
+                tarifa_hora_extra=fila[3], otras_deducciones=fila[4],
+                deduccion_salud=fila[5], deduccion_pension=fila[6],
+                total_deducciones=fila[7], total_devengado=fila[8],
+                total_a_pagar=fila[9]
+            )
+        return None
+    
+import psycopg2
+import sys
+sys.path.append("..")  # Añadimos el directorio raíz del proyecto al sys.path
+import secretConfg
+
+def probar_conexion():
+    """Verifica si la conexión a la base de datos es exitosa."""
+    try:
+        # Intentamos establecer la conexión
+        connection = psycopg2.connect(
+            host=secretConfg.PGHOST,
+            database=secretConfg.PGDATABASE,
+            user=secretConfg.PGUSER,
+            password=secretConfg.PGPASSWORD
+        )
+        print("Conexión exitosa a la base de datos.")
+        connection.close()  # Cerramos la conexión después de la prueba
+    except Exception as e:
+        print(f"Error al conectar a la base de datos: {e}")
+
+# Llamamos a la función para probar la conexión
+probar_conexion()
+        
+        
         
     
     
