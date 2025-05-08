@@ -71,7 +71,9 @@ Para crear las tablas necesarias en la base de datos, puedes ejecutar las funcio
 Antes de ejecutar el proyecto, es importante verificar que puedas conectarte correctamente a la base de datos de Neon.tech utilizando las credenciales en secret_config.py. Puedes usar el siguiente script de prueba:
 
 import psycopg2
+
 import secret_config
+
 
 def test_connection():
     try:
