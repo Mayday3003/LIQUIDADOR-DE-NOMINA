@@ -5,7 +5,7 @@ class Empleado:
     Representa a un empleado de la empresa.
     """
     
-    def __init__(self, id_empleado, nombre, salario_base):
+    def __init__(self, id_empleado: int, nombre: str, salario_base: float):
          self.id_empleado = id_empleado
          self.nombre = nombre
          self.salario_base = salario_base

@@ -1,5 +1,5 @@
 class Nomina:
-    def __init__(self, empleado_id, horas_extras, tarifa_hora_extra, otras_deducciones, deduccion_salud, deduccion_pension, total_deducciones, total_devengado, total_a_pagar):    
+    def __init__(self, empleado_id: int, horas_extras: int, tarifa_hora_extra: float, otras_deducciones: float, deduccion_salud: float, deduccion_pension: float, total_deducciones: float, total_devengado: float, total_a_pagar: float):   
         self.empleado_id = empleado_id
         self.horas_extras = horas_extras
         self.tarifa_hora_extra = tarifa_hora_extra
@@ -11,6 +11,7 @@ class Nomina:
         self.total_a_pagar = total_a_pagar
         
     def es_igual(self, otra_nomina):
+        print(otra_nomina.empleado_id)  
         assert self.empleado_id == otra_nomina.empleado_id
         assert self.horas_extras == otra_nomina.horas_extras
         assert self.tarifa_hora_extra == otra_nomina.tarifa_hora_extra
@@ -20,3 +21,4 @@ class Nomina:
         assert self.total_deducciones == otra_nomina.total_deducciones
         assert self.total_devengado == otra_nomina.total_devengado
         assert self.total_a_pagar == otra_nomina.total_a_pagar
+    
