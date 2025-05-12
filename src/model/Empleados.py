@@ -5,10 +5,10 @@ class Empleado:
     Representa a un empleado de la empresa.
     """
     
-    def __init__(self, empleado_id, nombre, salario_base):
-         self.empleado_id = empleado_id
-         self.nombre = nombre
-         self.salario_base = salario_base
+    def __init__(self, empleado_id: str, nombre: str, salario_base: float):
+         self.empleado_id: str = empleado_id
+         self.nombre: str = nombre
+         self.salario_base: float = salario_base
          
     def es_igual(self, otro_empleado):
         assert self.empleado_id == otro_empleado.empleado_id

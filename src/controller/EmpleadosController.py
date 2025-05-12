@@ -19,7 +19,7 @@ class EmpleadosController:
             
     def EliminarTabla():
         cursor = EmpleadosController.ObtenerCursor()
-        cursor.execute("""DROP TABLE empleados""")
+        cursor.execute("""DROP TABLE IF EXISTS empleados""")
         cursor.connection.commit()
         
     def Insertar(empleado: Empleado):
