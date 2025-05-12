@@ -16,20 +16,11 @@ class ControladorNominas:
     def crear_tabla():
         """ Crea la tabla de nóminas en la BD """
         cursor = ControladorNominas.ObtenerCursor()
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS nominas (
-                id SERIAL PRIMARY KEY,
-                empleado_id INTEGER REFERENCES empleados(id),
-                horas_extras INTEGER,
-                tarifa_hora_extra INTEGER,
-                otras_deducciones INTEGER,
-                deduccion_salud INTEGER,
-                deduccion_pension INTEGER,
-                total_deducciones INTEGER,
-                total_devengado INTEGER,
-                total_a_pagar INTEGER
-            );
-        """)
+        
+        with open("sql/crear-Nominas.sql", "r") as archivo:
+            consulta = archivo.read()
+            
+        cursor.execute(consulta)
         cursor.connection.commit()
         
     def EliminarTabla():
@@ -114,8 +105,7 @@ def probar_conexion():
 # Llamamos a la función para probar la conexión
 probar_conexion()
         
-        
-        
+
     
     
    

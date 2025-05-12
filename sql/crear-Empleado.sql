@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS empleados (
-    id SERIAL PRIMARY KEY,
-    nombre VARCHAR(100),
-    salario_base INTEGER
+    empleado_id VARCHAR(20) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    salario_base INTEGER NOT NULL
 );

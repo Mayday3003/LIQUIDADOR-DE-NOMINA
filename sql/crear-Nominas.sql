@@ -1,6 +1,5 @@
 CREATE TABLE nominas (
-    id SERIAL PRIMARY KEY,
-    empleado_id INTEGER REFERENCES empleados(id),
+    empleado_id VARCHAR(20) NOT NULL,
     horas_extras INTEGER DEFAULT 0,
     tarifa_hora_extra NUMERIC(10, 2) DEFAULT 0,
     otras_deducciones NUMERIC(10, 2) DEFAULT 0,
