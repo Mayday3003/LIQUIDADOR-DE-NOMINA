@@ -29,7 +29,7 @@ class EmpleadosController:
         
         cursor.connection.commit()
         
-    def BuscarEmpleadoPorID(empleado_id):   #verificar
+    def BuscarEmpleadoPorID(empleado_id):   
         cursor = EmpleadosController.ObtenerCursor()
         cursor.execute(f"""select empleado_id, nombre, salario_base
         from empleados where empleado_id = '{empleado_id}'""" )
