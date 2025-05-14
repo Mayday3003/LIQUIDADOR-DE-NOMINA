@@ -76,17 +76,27 @@ import secret_config
 
 
 def test_connection():
+
     try:
+    
         connection = psycopg2.connect(
+        
             host=secret_config.PGHOST,
+            
             database=secret_config.PGDATABASE,
+            
             user=secret_config.PGUSER,
+            
             password=secret_config.PGPASSWORD,
+            
             port=secret_config.PGPORT
         )
         print("Conexión exitosa a la base de datos.")
+        
         connection.close()
+        
     except Exception as e:
+    
         print(f"Error al conectar a la base de datos: {e}")
 
 test_connection()
