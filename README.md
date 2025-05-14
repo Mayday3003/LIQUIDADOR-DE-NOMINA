@@ -59,9 +59,13 @@ Agrega secret_config.py a .gitignore
 En el archivo secret_config.py deberás colocar las credenciales de conexión a tu base de datos de Neon.tech. El archivo debe tener el siguiente formato:
 
 PGHOST = "your_neon_host"
+
 PGDATABASE = "your_database_name"
+
 PGUSER = "your_database_user"
+
 PGPASSWORD = "your_database_password"
+
 PGPORT = "5432"  # Puerto por defecto de PostgreSQL
 
 5. Proceso para crear las tablas en la base de datos
