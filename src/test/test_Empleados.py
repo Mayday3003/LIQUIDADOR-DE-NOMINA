@@ -37,8 +37,6 @@ class test_Empleados(unittest.TestCase):
         EmpleadosController.CrearTabla()
         empleado_modificado = Empleado(empleado_id="245690", nombre="Alberto", salario_base=500000)
         EmpleadosController.Insertar(empleado_modificado)
-        #resultado = EmpleadosController.BuscarEmpleadoPorID(empleado_modificado)  #agregar verificaciones en pruebas de modificar 
-        #self.assertTrue(resultado.es_igual(empleado_modificado))
         
     def test_modificar_empleado_2(self):
         empleado_original = Empleado(empleado_id="112530", nombre="juan", salario_base=3000000)
@@ -57,8 +55,8 @@ class test_Empleados(unittest.TestCase):
         EmpleadosController.Insertar(empleado_modificado)
         
     def test_buscado_1(self):
-        empleado_id = "1360789"
-        esperado = Empleado(empleado_id="1360789", nombre="Esteban", salario_base=5000000)
+        empleado_id = "334"
+        esperado = Empleado(empleado_id="334", nombre="Esteban", salario_base=5000000)
         EmpleadosController.Insertar(esperado)
         resultado = EmpleadosController.BuscarEmpleadoPorID(empleado_id)
         self.assertTrue(resultado.es_igual(esperado))
