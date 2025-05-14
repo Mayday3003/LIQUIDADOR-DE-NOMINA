@@ -36,6 +36,27 @@ class EmpleadosController:
         fila = cursor.fetchone()
         resultado = Empleado(fila[0],fila[1],fila[2])   #verificar funcion
         return resultado
+    
+    def actualizar_campo_empleado(empleado_id, campo, nuevo_valor):
+        cursor = EmpleadosController.ObtenerCursor()
+        
+        campos_validos = [
+        "empleado_id",
+        "nombre",
+        "salario_base"]
+        
+        if campo not in campos_validos:
+                raise ValueError(f"Campo inválido: {campo}")
+
+        # Consulta dinámica (campo ya fue validado)
+        query = f"""
+        UPDATE empleados
+        SET {campo} = %s
+        WHERE empleado_id = %s;
+        """
+        cursor.execute(query, (nuevo_valor, empleado_id))
+        cursor.connection.commit()
+        
 
     def ObtenerCursor():
         connection = psycopg2.connect(host=secretConfg.PGHOST, database=secretConfg.PGDATABASE, user=secretConfg.PGUSER, password=secretConfg.PGPASSWORD)
