@@ -128,7 +128,26 @@ class test_Nominas(unittest.TestCase):
         resultado = ControladorNominas.BuscarNominaPorEmpleado("103")
         self.assertTrue(resultado.es_igual(nomina_modificada))
         
-    
-    
+    def test_buscado_1(self):
+        empleado_id = "485679"
+        esperado = Nomina(empleado_id, 15, 40000, 10000, 80000, 85000, 175000, 2000000, 1825000)
+        ControladorNominas.InsertarNomina(esperado)
+        resultado = ControladorNominas.BuscarNominaPorEmpleado(empleado_id)
+        self.assertTrue(resultado.es_igual(esperado))
+        
+    def test_buscado_2(self):
+        empleado_id = "1034567"
+        esperado = Nomina(empleado_id, 5, 18000, 5000, 75000, 79000, 159000, 1800000, 1641000)
+        ControladorNominas.InsertarNomina(esperado)
+        resultado = ControladorNominas.BuscarNominaPorEmpleado(empleado_id)
+        self.assertTrue(resultado.es_igual(esperado))
+        
+    def test_buscado_3(self):
+        empleado_id = "777778"
+        esperado = Nomina(empleado_id, 0, 0, 2000, 60000, 70000, 132000, 1500000, 1368000)
+        ControladorNominas.InsertarNomina(esperado)
+        resultado = ControladorNominas.BuscarNominaPorEmpleado(empleado_id)
+        self.assertTrue(resultado.es_igual(esperado))
+        
 if __name__ == '__main__':
     unittest.main()
