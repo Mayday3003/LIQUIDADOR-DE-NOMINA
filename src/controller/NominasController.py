@@ -48,6 +48,8 @@ class ControladorNominas:
         WHERE empleado_id = '{empleado_id}'
     """)
         fila = cursor.fetchone()
+        if fila is None:
+            return None
         resultado = Nomina(empleado_id=fila[0], horas_extras=fila[1], tarifa_hora_extra=fila[2], otras_deducciones=fila[3],
                deduccion_salud=fila[4], deduccion_pension=fila[5], total_deducciones=fila[6],
                total_devengado=fila[7], total_a_pagar=fila[8])

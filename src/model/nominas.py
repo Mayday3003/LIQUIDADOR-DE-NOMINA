@@ -20,4 +20,5 @@ class Nomina:
         assert self.total_deducciones == otra_nomina.total_deducciones
         assert self.total_devengado == otra_nomina.total_devengado
         assert self.total_a_pagar == otra_nomina.total_a_pagar
+        return True
     
