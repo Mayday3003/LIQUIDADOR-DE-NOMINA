@@ -37,7 +37,7 @@ class test_Empleados(unittest.TestCase):
         EmpleadosController.CrearTabla()
         empleado_modificado = Empleado(empleado_id="245690", nombre="Alberto", salario_base=500000)
         EmpleadosController.Insertar(empleado_modificado)
-        #resultado = EmpleadosController.BuscarEmpleadoPorID(empleado_modificado)
+        #resultado = EmpleadosController.BuscarEmpleadoPorID(empleado_modificado)  #agregar verificaciones en pruebas de modificar 
         #self.assertTrue(resultado.es_igual(empleado_modificado))
         
     def test_modificar_empleado_2(self):
@@ -55,7 +55,15 @@ class test_Empleados(unittest.TestCase):
         EmpleadosController.CrearTabla()
         empleado_modificado = Empleado(empleado_id="045690", nombre="valentina", salario_base=700000)
         EmpleadosController.Insertar(empleado_modificado)
-    
+        
+    def test_buscado_1(self):
+        empleado_id = "1360789"
+        esperado = Empleado(empleado_id="1360789", nombre="Esteban", salario_base=5000000)
+        EmpleadosController.Insertar(esperado)
+        resultado = EmpleadosController.BuscarEmpleadoPorID(empleado_id)
+        self.assertTrue(resultado.es_igual(esperado))
+        
+        #terminar casos de busqueda 
         
 if __name__ == '__main__':
     unittest.main()

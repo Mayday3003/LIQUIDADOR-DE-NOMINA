@@ -34,7 +34,7 @@ class EmpleadosController:
         cursor.execute(f"""select empleado_id, nombre, salario_base
         from empleados where empleado_id = '{empleado_id}'""" )
         fila = cursor.fetchone()
-        resultado = Empleado(empleado_id=fila[0],nombre=fila[1],salario_base=fila[2])
+        resultado = Empleado(fila[0],fila[1],fila[2])   #verificar funcion
         return resultado
 
     def ObtenerCursor():

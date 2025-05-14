@@ -56,71 +56,31 @@ class ControladorNominas:
         
         return resultado
     
-    def ModificarNomina(nomina: Nomina):
+    def actualizar_campo_nomina(empleado_id, campo, nuevo_valor):
         cursor = ControladorNominas.ObtenerCursor()
-
-        # Usar parámetros en la consulta para evitar inyección SQL
-        query = """
-        UPDATE nominas
-        SET
-            horas_extras = %s,
-            tarifa_hora_extra = %s,
-            otras_deducciones = %s,
-            deduccion_salud = %s,
-            deduccion_pension = %s,
-            total_deducciones = %s,
-            total_devengado = %s,
-            total_a_pagar = %s
-        WHERE empleado_id = %s
-        """
-        values = (
-            nomina.horas_extras,
-            nomina.tarifa_hora_extra,
-            nomina.otras_deducciones,
-            nomina.deduccion_salud,
-            nomina.deduccion_pension,
-            nomina.total_deducciones,
-            nomina.total_devengado,
-            nomina.total_a_pagar,
-            nomina.empleado_id
-        )
-
-        try:
-            # Ejecutar la actualización
-            cursor.execute(query, values)
-            
-            # Confirmar la transacción
-            cursor.connection.commit()
-
-            # Verificar si se actualizó alguna fila
-            if cursor.rowcount == 0:
-                print("Empleado no encontrado.")
-                return None
-            
-            # Obtener los datos actualizados
-            cursor.execute("SELECT * FROM nominas WHERE empleado_id = %s", (nomina.empleado_id,))
-            fila = cursor.fetchone()
-            
-            if fila:
-                return Nomina(
-                    empleado_id=fila[0],
-                    horas_extras=fila[1],
-                    tarifa_hora_extra=fila[2],
-                    otras_deducciones=fila[3],
-                    deduccion_salud=fila[4],
-                    deduccion_pension=fila[5],
-                    total_deducciones=fila[6],
-                    total_devengado=fila[7],
-                    total_a_pagar=fila[8]
-                )
-            else:
-                print("No se encontraron resultados actualizados.")
-                return None
-        except Exception as e:
-            # Manejo de errores
-            print(f"Error al modificar la nómina: {e}")
-            return None
         
-            
+        campos_validos = [
+        "horas_extras",
+        "tarifa_hora_extra",
+        "otras_deducciones",
+        "deduccion_salud",
+        "deduccion_pension",
+        "total_deducciones",
+        "total_devengado",
+        "total_a_pagar"]
     
+        
+        if campo not in campos_validos:
+                raise ValueError(f"Campo inválido: {campo}")
+
+        # Consulta dinámica (campo ya fue validado)
+        query = f"""
+        UPDATE Nominas
+        SET {campo} = %s
+        WHERE empleado_id = %s;
+        """
+        cursor.execute(query, (nuevo_valor, empleado_id))
+        cursor.connection.commit()
+                
+        
     
