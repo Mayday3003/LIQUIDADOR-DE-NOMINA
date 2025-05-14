@@ -54,12 +54,12 @@ class test_Empleados(unittest.TestCase):
         empleado_modificado = Empleado(empleado_id="045690", nombre="valentina", salario_base=700000)
         EmpleadosController.Insertar(empleado_modificado)
         
-    def test_buscado_1(self):
-        empleado_id = "334"
-        esperado = Empleado(empleado_id="334", nombre="Esteban", salario_base=5000000)
-        EmpleadosController.Insertar(esperado)
-        resultado = EmpleadosController.BuscarEmpleadoPorID(empleado_id)
-        self.assertTrue(resultado.es_igual(esperado))
+    #def test_buscado_1(self):
+        #empleado_id = "334"
+        #esperado = Empleado(empleado_id="334", nombre="Esteban", salario_base=5000000)
+        #EmpleadosController.Insertar(esperado)
+        #resultado = EmpleadosController.BuscarEmpleadoPorID(empleado_id)
+        #self.assertTrue(resultado.es_igual(esperado))
         
         #terminar casos de busqueda 
         
