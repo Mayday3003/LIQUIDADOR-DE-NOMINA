@@ -40,7 +40,6 @@ def insertar():
         sueldo = request.form.get('sueldo', '').strip()
         deducciones = request.form.get('deducciones', '0').strip() or '0'
 
-        # Validaciones
         if not nombre:
             errores['nombre'] = "El nombre es obligatorio."
         if not dni:
@@ -50,7 +49,6 @@ def insertar():
         if not deducciones.replace('.', '', 1).isdigit() or float(deducciones) < 0:
             errores['deducciones'] = "Las deducciones deben ser un número mayor o igual a 0."
 
-        # DNI único
         if not errores:
             conn = get_connection()
             cur = conn.cursor()
@@ -68,7 +66,7 @@ def insertar():
                 "INSERT INTO empleados (nombre, dni, sueldo, deducciones, neto) VALUES (%s, %s, %s, %s, %s) RETURNING id",
                 (nombre, dni, sueldo, deducciones, neto)
             )
-            nuevo_id = cur.fetchone()["id"]  # Corrección: acceder por clave, no por índice
+            nuevo_id = cur.fetchone()["id"]  
             conn.commit()
             cur.close()
             conn.close()
@@ -106,7 +104,6 @@ def modificar(empleado_id):
         if not deducciones.replace('.', '', 1).isdigit() or float(deducciones) < 0:
             errores['deducciones'] = "Las deducciones deben ser un número mayor o igual a 0."
 
-        # DNI único (excepto el propio)
         if not errores:
             cur.execute("SELECT id FROM empleados WHERE dni = %s AND id != %s", (dni, empleado_id))
             if cur.fetchone():
@@ -146,7 +143,6 @@ def eliminar(empleado_id):
     conn.commit()
     cur.close()
     conn.close()
-    # Corrección: acceder por clave, no por índice
     flash(f"Empleado {empleado['nombre']} (DNI: {empleado['dni']}) eliminado correctamente.")
     return redirect(url_for('empleados.buscar'))
 

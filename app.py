@@ -7,13 +7,12 @@ app = Flask(__name__)
 app.secret_key = "supersecretkey"
 app.register_blueprint(empleados)
 
-# Probar conexión a la base de datos al iniciar la app
 try:
     conn = get_connection()
     conn.close()
     print("✅ Conexión exitosa a la base de datos.")
 except Exception as e:
-    print(f"❌ Error al conectar a la base de datos: {e}")
+    print(f"Error al conectar a la base de datos: {e}")
 
 @app.route('/')
 def index():

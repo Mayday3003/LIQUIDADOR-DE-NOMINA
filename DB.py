@@ -1,10 +1,8 @@
-# db.py
 import os
 from psycopg2 import connect, OperationalError
 from psycopg2.extras import RealDictCursor
 from dotenv import load_dotenv
 
-# Carga las variables de entorno desde .env
 load_dotenv()
 
 def get_connection():
@@ -20,7 +18,6 @@ def get_connection():
         raise
 
 if __name__ == "__main__":
-    # Prueba la conexión
     conn = get_connection()
     cur = conn.cursor()
     cur.execute("SELECT NOW() AS fecha;")
