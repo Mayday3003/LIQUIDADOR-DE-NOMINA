@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Eliminar Empleado</h2>
+    <p style="color:#c0392b;">Puedes eliminar un empleado desde la tabla de búsqueda o ingresando el ID manualmente:</p>
+    <form method="post">
+        <label for="empleado_id">ID del Empleado a eliminar:</label>
+        <input type="text" id="empleado_id" name="empleado_id" required>
+        <button type="submit" style="color:red;">Eliminar</button>
+    </form>
+{% endblock %}

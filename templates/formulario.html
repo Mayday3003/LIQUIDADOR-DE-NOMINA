@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquidador de Nómina</title>
+    <style>
+        nav a, nav button {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+        nav {
+            margin-bottom: 20px;
+        }
+        .estado {
+            margin-bottom: 20px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Liquidador de Nómina</h1>
+    </header>
+    <nav>
+        <a href="/">Inicio</a>
+        <a href="/buscar">Buscar empleado</a>
+        <a href="/insertar">Insertar empleado</a>
+        <a href="/modificar">Modificar empleado</a>
+        <a href="/eliminar">Eliminar empleado</a>
+        <form action="/crear_tablas" method="post" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres crear/resetear la BD?');">
+            <button type="submit">Crear Tablas</button>
+        </form>
+    </nav>
+    <div class="estado">
+        {% if estado_conexion %}
+            Base de datos conectada: OK
+        {% else %}
+            <span style="color:red;">No se pudo conectar a la BD. Revisa credenciales.</span>
+        {% endif %}
+        {% if mensaje %}
+            <div>{{ mensaje }}</div>
+        {% endif %}
+    </div>
+    <h2>Calcular Nómina</h2>
+    <form action="/buscar" method="post">
+        <label for="salario_base">Salario base:</label>
+        <input type="number" step="any" id="salario_base" name="salario_base" required><br>
+
+        <label for="horas_extras">Horas extras:</label>
+        <input type="number" step="any" id="horas_extras" name="horas_extras" required><br>
+
+        <label for="tarifa_hora_extra">Tarifa por hora extra:</label>
+        <input type="number" step="any" id="tarifa_hora_extra" name="tarifa_hora_extra" required><br>
+
+        <label for="deduccion_salud">Deducción por salud (%):</label>
+        <input type="number" step="any" id="deduccion_salud" name="deduccion_salud" required><br>
+
+        <label for="deduccion_pension">Deducción por pensión (%):</label>
+        <input type="number" step="any" id="deduccion_pension" name="deduccion_pension" required><br>
+
+        <label for="otras_deducciones">Otras deducciones:</label>
+        <input type="number" step="any" id="otras_deducciones" name="otras_deducciones" required><br>
+
+        <button type="submit">Calcular</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Liquidador de Nómina</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        nav a, nav button {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+        nav {
+            margin-bottom: 20px;
+        }
+        .flashes {
+            color: green;
+            list-style: none;
+        }
+        main {
+            margin-top: 20px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+            margin-bottom: 5px;
+        }
+        input, select, button {
+            margin-bottom: 10px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #aaa;
+            padding: 6px 12px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Liquidador de Nómina</h1>
+    </header>
+    <nav>
+        <a href="{{ url_for('empleados.index') }}">Inicio</a>
+        <a href="{{ url_for('empleados.buscar') }}">Buscar empleado</a>
+        <a href="{{ url_for('empleados.insertar') }}">Insertar empleado</a>
+        <a href="{{ url_for('empleados.eliminar_manual') }}">Eliminar empleado</a>
+        <form action="{{ url_for('empleados.crear_tablas') }}" method="post" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres crear/resetear la BD?');">
+            <button type="submit">Crear Tablas</button>
+        </form>
+    </nav>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

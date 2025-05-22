@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Modificar Empleado</h2>
+<form method="post">
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" id="nombre" value="{{ form.nombre or form[1] }}">
+    <span style="color:red;">{{ errores.nombre or '' }}</span><br>
+    <label for="dni">DNI:</label>
+    <input type="text" name="dni" id="dni" value="{{ form.dni or form[2] }}">
+    <span style="color:red;">{{ errores.dni or '' }}</span><br>
+    <label for="sueldo">Sueldo bruto:</label>
+    <input type="number" step="any" name="sueldo" id="sueldo" value="{{ form.sueldo or form[3] }}">
+    <span style="color:red;">{{ errores.sueldo or '' }}</span><br>
+    <label for="deducciones">Deducciones:</label>
+    <input type="number" step="any" name="deducciones" id="deducciones" value="{{ form.deducciones or form[4] }}">
+    <span style="color:red;">{{ errores.deducciones or '' }}</span><br>
+    <button type="submit">Actualizar</button>
+</form>
+{% endblock %}

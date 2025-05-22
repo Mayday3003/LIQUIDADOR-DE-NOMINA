@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Buscar Empleado</h2>
+<form method="post">
+    <label for="criterio">Criterio:</label>
+    <input type="text" name="criterio" id="criterio" placeholder="Nombre, parte o DNI" value="{{ criterio or '' }}" required>
+    <button type="submit">Buscar</button>
+</form>
+{% if empleados %}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>DNI</th>
+            <th>Sueldo</th>
+            <th>Deducciones</th>
+            <th>Neto</th>
+            <th>Acciones</th>
+        </tr>
+        {% for emp in empleados %}
+        <tr>
+            <td>{{ emp.id }}</td>
+            <td>{{ emp.nombre }}</td>
+            <td>{{ emp.dni }}</td>
+            <td>{{ emp.sueldo }}</td>
+            <td>{{ emp.deducciones }}</td>
+            <td>{{ emp.neto }}</td>
+            <td>
+                <a href="{{ url_for('empleados.modificar', empleado_id=emp.id) }}">Modificar</a>
+                <form action="{{ url_for('empleados.eliminar', empleado_id=emp.id) }}" method="post" style="display:inline;" onsubmit="return confirm('¿Seguro que deseas eliminar al empleado {{ emp.nombre }}, DNI {{ emp.dni }}?');">
+                    <button type="submit" style="color:red;">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <hr>
+    <h3>¿Quieres eliminar por ID?</h3>
+    <a href="{{ url_for('empleados.eliminar_manual') }}">Ir a eliminar por ID</a>
+{% elif criterio %}
+    <p>No se encontraron empleados que coincidan.</p>
+{% endif %}
+{% endblock %}
