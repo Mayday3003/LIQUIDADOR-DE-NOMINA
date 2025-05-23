@@ -16,6 +16,14 @@
         .flashes {
             color: green;
             list-style: none;
+            margin-bottom: 20px;
+        }
+        .flashes li {
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        .flashes .error {
+            color: #c0392b;
         }
         main {
             margin-top: 20px;
@@ -55,6 +63,15 @@
         </form>
     </nav>
     <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flashes">
+              {% for category, message in messages %}
+                <li class="{{ category|e }}">{{ message|safe }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
         {% block content %}{% endblock %}
     </main>
 </body>
