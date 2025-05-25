@@ -2,6 +2,10 @@ from flask import Flask, render_template, request
 from src.controller.NominasController import ControladorNominas
 from blueprints.empleados_bp import empleados
 from DB import get_connection
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Carga las variables de entorno desde el archivo .env
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"
