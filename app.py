@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask
 from src.controller.NominasController import ControladorNominas
-from blueprints.empleados_bp import empleados
+from src.view.web.empleados_bp import empleados
 from DB import get_connection
 from dotenv import load_dotenv
 import os
@@ -18,18 +18,7 @@ try:
 except Exception as e:
     print(f"Error al conectar a la base de datos: {e}")
 
-@app.route('/')
-def index():
-    return render_template('formulario.html')
-
-@app.route('/buscar', methods=['POST'])
-def buscar():
-    empleado_id = request.form.get('empleado_id')
-    resultado = ControladorNominas.BuscarNominaPorEmpleado(empleado_id)
-    if resultado:
-        return render_template('buscar.html', nomina=resultado)
-    else:
-        return render_template('buscar.html', error="No se encontró la nómina para el empleado.")
+# Elimina las rutas '/' y '/buscar' aquí, ya que están en el blueprint
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='127.0.0.1', port=5000, debug=True)

@@ -66,7 +66,7 @@ def insertar():
                 "INSERT INTO empleados (nombre, dni, sueldo, deducciones, neto) VALUES (%s, %s, %s, %s, %s) RETURNING id",
                 (nombre, dni, sueldo, deducciones, neto)
             )
-            nuevo_id = cur.fetchone()["id"]  
+            nuevo_id = cur.fetchone()["id"]
             conn.commit()
             cur.close()
             conn.close()
@@ -94,7 +94,6 @@ def modificar(empleado_id):
         sueldo = request.form.get('sueldo', '').strip()
         deducciones = request.form.get('deducciones', '0').strip() or '0'
 
-        # Validaciones
         if not nombre:
             errores['nombre'] = "El nombre es obligatorio."
         if not dni:
@@ -137,13 +136,17 @@ def eliminar(empleado_id):
     if not empleado:
         cur.close()
         conn.close()
-        flash("Empleado no encontrado.")
+        flash("Empleado no encontrado.", "error")
         return redirect(url_for('empleados.buscar'))
     cur.execute("DELETE FROM empleados WHERE id = %s", (empleado_id,))
     conn.commit()
     cur.close()
     conn.close()
-    flash(f"Empleado {empleado['nombre']} (DNI: {empleado['dni']}) eliminado correctamente.")
+    flash(
+        f"<span style='color:green;font-weight:bold;'>Empleado eliminado correctamente:</span> "
+        f"<span style='color:#2c3e50;'>Nombre: <b>{empleado['nombre']}</b>, DNI: <b>{empleado['dni']}</b></span>",
+        "success"
+    )
     return redirect(url_for('empleados.buscar'))
 
 @empleados.route('/eliminar', methods=['GET', 'POST'])
@@ -151,7 +154,25 @@ def eliminar_manual():
     if request.method == 'POST':
         empleado_id = request.form.get('empleado_id')
         if empleado_id:
-            return redirect(url_for('empleados.eliminar', empleado_id=empleado_id))
+            conn = get_connection()
+            cur = conn.cursor()
+            cur.execute("SELECT nombre, dni FROM empleados WHERE id = %s", (empleado_id,))
+            empleado = cur.fetchone()
+            if not empleado:
+                cur.close()
+                conn.close()
+                flash("Empleado no encontrado.", "error")
+                return render_template('eliminar.html')
+            cur.execute("DELETE FROM empleados WHERE id = %s", (empleado_id,))
+            conn.commit()
+            cur.close()
+            conn.close()
+            flash(
+                f"<span style='color:green;font-weight:bold;'>Empleado eliminado correctamente:</span> "
+                f"<span style='color:#2c3e50;'>Nombre: <b>{empleado['nombre']}</b>, DNI: <b>{empleado['dni']}</b></span>",
+                "success"
+            )
+            return redirect(url_for('empleados.eliminar_manual'))
     return render_template('eliminar.html')
 
 @empleados.route('/crear_tablas', methods=['POST'])
