@@ -136,6 +136,9 @@ flask run -p 10000 -h 0.0.0.0
 
 Para los parámetros de conexión a la base de datos, Ingrese al menú Environnment -> Secret Files y cree un nuevo Secret File llamado SecretConfig.py y ponga dentro de él las variables de conexión de su base de datos
 
+- Link del deploy:
+- https://liquidador-de-nomina-iv98.onrender.com
+
 5. Funcionalidades disponibles en la aplicación web:
 
 - Gestión de empleados: agregar, modificar, eliminar y buscar empleados.  
