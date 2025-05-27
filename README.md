@@ -118,7 +118,8 @@ Abre un navegador web y navega a la siguiente URL:
 ```
 http://127.0.0.1:5000
 ```
-Despliegue en Render.com
+4.Despliegue en Render.com:
+
 Para desplegar su aplicación Flask en Render.com , tena en cuenta lo siguiente:
 
 Cree un archivo requirements.txt en la raiz de su proyecto, donde liste los modulos que deben instalarse par apoder ejecutar su aplicación.
@@ -135,13 +136,13 @@ flask run -p 10000 -h 0.0.0.0
 
 Para los parámetros de conexión a la base de datos, Ingrese al menú Environnment -> Secret Files y cree un nuevo Secret File llamado SecretConfig.py y ponga dentro de él las variables de conexión de su base de datos
 
-4. Funcionalidades disponibles en la aplicación web:
+5. Funcionalidades disponibles en la aplicación web:
 
 - Gestión de empleados: agregar, modificar, eliminar y buscar empleados.  
 - Gestión de nóminas: insertar y consultar nóminas asociadas a empleados.  
 - Formularios web para facilitar la interacción con la base de datos.
 
-5. Requisitos adicionales:
+6. Requisitos adicionales:
 
 - Asegúrate de que la base de datos PostgreSQL esté corriendo y accesible con las credenciales configuradas en `secret_config.py`.  
 - El archivo `secret_config.py` debe estar correctamente configurado con los datos de conexión a la base de datos.
