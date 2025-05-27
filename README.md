@@ -109,7 +109,7 @@ pip install flask
 2. Ejecutar el servidor web:
 
 ```
-python app.py
+flask run
 ```
 
 3. Acceder a la aplicación web:  
@@ -155,7 +155,7 @@ pip install psycopg2 flask
 - Ejecuta el proyecto con:
 
 ```
-python app.py
+flask run
 ```
 
 ### Requisitos para los cambios
