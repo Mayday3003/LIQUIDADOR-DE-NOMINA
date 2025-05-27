@@ -1,153 +1,244 @@
+#Importar biblioteca unittes
 import unittest
-import sys
+import sys 
 sys.path.append("src")
+import model.nomina as nomina
 
-from model.nominas import Nomina
-from controller.NominasController import ControladorNominas
+from model.nomina import calcular_total_devengado, calcular_deducciones, calcular_salario_neto
+from model.nomina import ErrorValorSalario, ErrorPorcentajeDeduccion, ErrorHorasExtras, ErrorAfiliacion
+#crear clase con casos de prueba 
 
-class test_Nominas(unittest.TestCase):
+class pruebas_Nom(unittest.TestCase):
     
-    def setUpClass():
-        ControladorNominas.EliminarTabla()
-        ControladorNominas.crear_tabla()
-    
-    def test_insertar_nomina_1(self):
-        nomina = Nomina("101", 10, 20000, 10000, 80000, 85000, 175000, 2000000, 1825000)
-        ControladorNominas.InsertarNomina(nomina)  
-        buscar_nomina = ControladorNominas.BuscarNominaPorEmpleado(nomina.empleado_id)
-        self.assertTrue(buscar_nomina.es_igual(nomina))
-
-    def test_insertar_nomina_2(self):
-        nomina = Nomina("102", 5, 18000, 5000, 75000, 79000, 159000, 1800000, 1641000)
-        ControladorNominas.InsertarNomina(nomina)
-        buscar_nomina = ControladorNominas.BuscarNominaPorEmpleado(nomina.empleado_id)
-        self.assertTrue(buscar_nomina.es_igual(nomina))
-
-    def test_insertar_nomina_3(self):
-        nomina = Nomina("103", 0, 0, 2000, 60000, 70000, 132000, 1500000, 1368000)
-        ControladorNominas.InsertarNomina(nomina)
-        buscar_nomina = ControladorNominas.BuscarNominaPorEmpleado(nomina.empleado_id)
-        self.assertTrue(buscar_nomina.es_igual(nomina))
+    def test_caso_1(self):
+        """Datos de entrada"""
+        salario_base = 2000000
+        horas_extra = 0
+        tarifa_hora_extra = 0
+        porcentaje_salud = 4
+        porcentaje_pension = 4
+        otras_deducciones = 0
         
-    def test_modificar_1(self):
-        nomina_original = Nomina(
-            empleado_id="101",
-            horas_extras=10,
-            tarifa_hora_extra=20000,
-            otras_deducciones=10000,
-            deduccion_salud=80000,
-            deduccion_pension=85000,
-            total_deducciones=175000,
-            total_devengado=2000000,
-            total_a_pagar=1825000
-        )
-        ControladorNominas.InsertarNomina(nomina_original)
+        """Valores esperados"""
+        esperado_total_devengado = 2000000
+        esperado_total_deducciones = 160000
+        esperado_salario_neto = 1840000
+        
+        """Cálculos"""
+        total_devengado = calcular_total_devengado(salario_base, horas_extra, tarifa_hora_extra)
+        total_deducciones = calcular_deducciones(salario_base, porcentaje_salud, porcentaje_pension, otras_deducciones)
+        salario_neto = calcular_salario_neto(total_devengado, total_deducciones)
+        
+        """Mostrar resultado en consolo"""
+        print(f"\nCaso 1:")
+        print(f"Total devengado calculado: {total_devengado}, esperado: {esperado_total_devengado}")
+        print(f"Total deducciones calculado: {total_deducciones}, esperado: {esperado_total_deducciones}")
+        print(f"Salario neto calculado: {salario_neto}, esperado: {esperado_salario_neto}")
+        
+        """Verificaciones"""
+        self.assertEqual(total_devengado, esperado_total_devengado, "Error en el cálculo de total devengado")
+        self.assertEqual(total_deducciones, esperado_total_deducciones, "Error en el cálculo de total deducciones")
+        self.assertEqual(salario_neto, esperado_salario_neto, "Error en el cálculo de salario neto")
+        
+    def test_caso_2(self):
+        """Datos de entrada"""
+        salario_base = 2200000
+        horas_extra = 10
+        tarifa_hora_extra = 15000
+        porcentaje_salud = 4
+        porcentaje_pension = 4
+        otras_deducciones = 0
+        
+        """Valores esperados"""
+        esperado_total_devengado = 2350000
+        esperado_total_deducciones = 176000
+        esperado_salario_neto = 2174000
+        
+        """Cálculos"""
+        total_devengado = calcular_total_devengado(salario_base, horas_extra, tarifa_hora_extra)
+        total_deducciones = calcular_deducciones(salario_base, porcentaje_salud, porcentaje_pension, otras_deducciones)
+        salario_neto = calcular_salario_neto(total_devengado, total_deducciones)
+        
+        """Mostrar resultado en consola"""
+        print(f"\nCaso 2:")
+        print(f"Total devengado calculado: {total_devengado}, esperado: {esperado_total_devengado}")
+        print(f"Total deducciones calculado: {total_deducciones}, esperado: {esperado_total_deducciones}")
+        print(f"Salario neto calculado: {salario_neto}, esperado: {esperado_salario_neto}")
+        
+        """Verificaciones"""
+        self.assertEqual(total_devengado, esperado_total_devengado, "Error en el cálculo de total devengado")
+        self.assertEqual(total_deducciones, esperado_total_deducciones, "Error en el cálculo de total deducciones")
+        self.assertEqual(salario_neto, esperado_salario_neto, "Error en el cálculo de salario neto")
+        
+    def test_caso_3(self):
+        """Datos de entrada"""
+        salario_base = 3000000
+        horas_extra = 5
+        tarifa_hora_extra = 20000
+        porcentaje_salud = 4
+        porcentaje_pension = 4
+        otras_deducciones = 60000  
+        
+        """Valores esperados"""
+        esperado_total_devengado = 3100000
+        esperado_total_deducciones = 300000
+        esperado_salario_neto = 2800000
+        
+        """Cálculos"""
+        total_devengado = calcular_total_devengado(salario_base, horas_extra, tarifa_hora_extra)
+        total_deducciones = calcular_deducciones(salario_base, porcentaje_salud, porcentaje_pension, otras_deducciones)
+        salario_neto = calcular_salario_neto(total_devengado, total_deducciones)
+        
+        """Mostrar resultado en consola"""
+        print(f"\nCaso 3:")
+        print(f"Total devengado calculado: {total_devengado}, esperado: {esperado_total_devengado}")
+        print(f"Total deducciones calculado: {total_deducciones}, esperado: {esperado_total_deducciones}")
+        print(f"Salario neto calculado: {salario_neto}, esperado: {esperado_salario_neto}")
+        
+        """Verificaciones"""
+        self.assertEqual(total_devengado, esperado_total_devengado, "Error en el cálculo de total devengado")
+        self.assertEqual(total_deducciones, esperado_total_deducciones, "Error en el cálculo de total deducciones")
+        self.assertEqual(salario_neto, esperado_salario_neto, "Error en el cálculo de salario neto")
+        
+        
+        
+    def test_caso_4(self):
+        "Caso 4: Salario mínimo con muchas horas extras"
+        """Datos de entrada"""
+        salario_base = 1423500
+        horas_extra = 80
+        tarifa_hora_extra = 12000
+        porcentaje_salud = 4
+        porcentaje_pension = 4
+        otras_deducciones = 0
 
-        ControladorNominas.EliminarTabla()
-        ControladorNominas.crear_tabla()
-        nomina_modificada = Nomina(
-            empleado_id="101",
-            horas_extras=15,  
-            tarifa_hora_extra=25000,
-            otras_deducciones=10000,  
-            deduccion_salud=60000,    
-            deduccion_pension=60000,  
-            total_deducciones=130000,
-            total_devengado=3200000,  
-            total_a_pagar=3070000    
-        )
-        ControladorNominas.InsertarNomina(nomina_modificada)
-        
-        resultado = ControladorNominas.BuscarNominaPorEmpleado("101")
-        self.assertTrue(resultado.es_igual(nomina_modificada))
-        
-        
-    def test_modificar_2(self):
-        nomina_original = Nomina(
-            empleado_id="102",
-            horas_extras=5,
-            tarifa_hora_extra=18000,
-            otras_deducciones=5000,
-            deduccion_salud=75000,
-            deduccion_pension=79000,
-            total_deducciones=159000,
-            total_devengado=1800000,
-            total_a_pagar=1641000
-        )
-        ControladorNominas.InsertarNomina(nomina_original)
+        """Valores esperados"""
+        esperado_total_devengado = 2383500
+        esperado_total_deducciones = 190680
+        esperado_salario_neto = 2192820
 
-        nomina_modificada = Nomina(
-            empleado_id="102",
-            horas_extras=7,            
-            tarifa_hora_extra=20000,    
-            otras_deducciones=4000,     
-            deduccion_salud=70000,      
-            deduccion_pension=75000,    
-            total_deducciones=145000,   
-            total_devengado=1900000,    
-            total_a_pagar=1755000       
-        )
-
-        ControladorNominas.EliminarTabla()
-        ControladorNominas.crear_tabla()
-        ControladorNominas.InsertarNomina(nomina_modificada)
-
-        resultado = ControladorNominas.BuscarNominaPorEmpleado("102")
-        self.assertTrue(resultado.es_igual(nomina_modificada))
+        """Cálculos"""
+        total_devengado = calcular_total_devengado(salario_base, horas_extra, tarifa_hora_extra)
+        total_deducciones = calcular_deducciones(total_devengado, porcentaje_salud, porcentaje_pension, otras_deducciones)
+        salario_neto = calcular_salario_neto(total_devengado, total_deducciones)
         
-    def test_modificar_3(self):
-        nomina_original = Nomina(
-            empleado_id="103",
-            horas_extras=0,
-            tarifa_hora_extra=0,
-            otras_deducciones=2000,
-            deduccion_salud=60000,
-            deduccion_pension=70000,
-            total_deducciones=132000,
-            total_devengado=1500000,
-            total_a_pagar=1368000
-        )
-        ControladorNominas.InsertarNomina(nomina_original)
+        """Mostrar resultado en consola"""
+        print(f"\nCaso 4:")
+        print(f"Total devengado calculado: {total_devengado}, esperado: {esperado_total_devengado}")
+        print(f"Total deducciones calculado: {total_deducciones}, esperado: {esperado_total_deducciones}")
+        print(f"Salario neto calculado: {salario_neto}, esperado: {esperado_salario_neto}")
 
-        nomina_modificada = Nomina(
-            empleado_id="103",
-            horas_extras=8,
-            tarifa_hora_extra=15000,
-            otras_deducciones=1000,
-            deduccion_salud=65000,
-            deduccion_pension=62000,
-            total_deducciones=128000,
-            total_devengado=1600000,
-            total_a_pagar=1472000
-        )
+        """Verificaciones"""
+        self.assertEqual(total_devengado, esperado_total_devengado, "Error en el cálculo de total devengado")
+        self.assertEqual(total_deducciones, esperado_total_deducciones, "Error en el cálculo de total deducciones")
+        self.assertEqual(salario_neto, esperado_salario_neto, "Error en el cálculo de salario neto")
+        
+    def test_caso_5(self):
+        """Caso 5: Licencia no remunerada (sin ingresos, pero con deducciones)"""
+        """Datos de entrada"""
+        salario_base = 3000000
+        horas_extra = 0
+        tarifa_hora_extra = 0
+        porcentaje_salud = 4
+        porcentaje_pension = 4
+        otras_deducciones = 0
+            
+        """Valores esperados"""
+        esperado_total_devengado = 0  
+        esperado_total_deducciones = 240000  
+        esperado_salario_neto = -240000  
+        
+        """Cálculos"""
+        total_devengado = 0
+        total_deducciones = calcular_deducciones(salario_base, porcentaje_salud, porcentaje_pension, otras_deducciones)
+        salario_neto = calcular_salario_neto(total_devengado, total_deducciones)
+        
+        print(f"\nCaso 5:")
+        print(f"Total devengado calculado: {total_devengado}, esperado: {esperado_total_devengado}")
+        print(f"Total deducciones calculado: {total_deducciones}, esperado: {esperado_total_deducciones}")
+        print(f"Salario neto calculado: {salario_neto}, esperado: {esperado_salario_neto}")
+        
+        """Verificaciones"""
+        self.assertEqual(total_devengado, esperado_total_devengado, "Error en el cálculo de total devengado")
+        self.assertEqual(total_deducciones, esperado_total_deducciones, "Error en el cálculo de total deducciones")
+        self.assertEqual(salario_neto, esperado_salario_neto, "Error en el cálculo de salario neto")
+        
+    def test_caso_6(self):  
+        """Caso 6: Salario alto con retención en la fuente"""
+        """Datos de entrada"""
+        salario_base = 15000000
+        horas_extra = 0
+        tarifa_hora_extra = 0
+        porcentaje_salud = 4
+        porcentaje_pension = 4
+        otras_deducciones = 0
+        retencion_fuente = (10 / 100 ) * salario_base 
 
-        ControladorNominas.EliminarTabla()
-        ControladorNominas.crear_tabla()
-        ControladorNominas.InsertarNomina(nomina_modificada)
+        """Valores esperados"""
+        esperado_total_devengado = 15000000  
+        esperado_total_deducciones = 2700000  
+        esperado_salario_neto = 12300000  
 
-        resultado = ControladorNominas.BuscarNominaPorEmpleado("103")
-        self.assertTrue(resultado.es_igual(nomina_modificada))
+        """Cálculos"""
+        total_devengado = calcular_total_devengado(salario_base, horas_extra, tarifa_hora_extra)
+        total_deducciones = calcular_deducciones(salario_base, porcentaje_salud, porcentaje_pension, otras_deducciones + retencion_fuente)
+        salario_neto = calcular_salario_neto(total_devengado, total_deducciones)
+
+        """Mostrar valores para depuración"""""
+        print(f"\nCaso 6:")
+        print(f"Total devengado: {total_devengado} (esperado: {esperado_total_devengado})")
+        print(f"Retención en la fuente: {retencion_fuente}")
+        print(f"Total deducciones: {total_deducciones} (esperado: {esperado_total_deducciones})")
+        print(f"Salario neto: {salario_neto} (esperado: {esperado_salario_neto})")
+
+        """Verificaciones"""
+        self.assertEqual(total_devengado, esperado_total_devengado, "Error en el cálculo de total devengado")
+        self.assertEqual(total_deducciones, esperado_total_deducciones, "Error en el cálculo de total deducciones")
+        self.assertEqual(salario_neto, esperado_salario_neto, "Error en el cálculo de salario neto")
+           
+    def test_caso_7(self):
+        """Excepción personalizada para valores de salario inválidos del salario base."""
+        salario_base = -2000000 
+        horas_extra = 0	
+        tarifa_hora_extra = 0	
         
-    def test_buscado_1(self):
-        empleado_id = "485679"
-        esperado = Nomina(empleado_id, 15, 40000, 10000, 80000, 85000, 175000, 2000000, 1825000)
-        ControladorNominas.InsertarNomina(esperado)
-        resultado = ControladorNominas.BuscarNominaPorEmpleado(empleado_id)
-        self.assertTrue(resultado.es_igual(esperado))
+        with self.assertRaises(ErrorValorSalario):
+            calcular_total_devengado(salario_base, horas_extra, tarifa_hora_extra)
         
-    def test_buscado_2(self):
-        empleado_id = "1034567"
-        esperado = Nomina(empleado_id, 5, 18000, 5000, 75000, 79000, 159000, 1800000, 1641000)
-        ControladorNominas.InsertarNomina(esperado)
-        resultado = ControladorNominas.BuscarNominaPorEmpleado(empleado_id)
-        self.assertTrue(resultado.es_igual(esperado))
+    def test_caso_8(self):
+        """Caso 8: Verifica que se lance una excepción si el porcentaje de deducción es mayor al 100%"""
+        salario_base = 3000000  
+        porcentaje_salud = 110  
+        porcentaje_pension = 4
+        otras_deducciones = 0
         
-    def test_buscado_3(self):
-        empleado_id = "777778"
-        esperado = Nomina(empleado_id, 0, 0, 2000, 60000, 70000, 132000, 1500000, 1368000)
-        ControladorNominas.InsertarNomina(esperado)
-        resultado = ControladorNominas.BuscarNominaPorEmpleado(empleado_id)
-        self.assertTrue(resultado.es_igual(esperado))
-        
+        with self.assertRaises(ErrorPorcentajeDeduccion):
+            calcular_deducciones(salario_base, porcentaje_salud, porcentaje_pension, otras_deducciones)
+            
+    def test_caso_9(self):
+        """Caso 9: Verifica que se lance una excepción si las horas extras superan 80."""
+        salario_base = 2500000 
+        horas_extras = 150  
+        tarifa_hora_extra = 15000
+
+        with self.assertRaises(ErrorHorasExtras):
+            calcular_total_devengado(salario_base, horas_extras, tarifa_hora_extra)
+            
+    def test_caso_10(self):
+        """Caso 10: Verifica que se lance una excepción si el trabajador no está afiliado a salud y pensión."""
+        salario_base = 3000000 
+        porcentaje_salud = 0  
+        porcentaje_pension = 0 
+        otras_deducciones = 0
+
+        with self.assertRaises(ErrorAfiliacion):
+            calcular_deducciones(salario_base, porcentaje_salud, porcentaje_pension, otras_deducciones)
+
+"""Ejecutar de prueas"""
 if __name__ == '__main__':
     unittest.main()
+    
+
+
+    
+    

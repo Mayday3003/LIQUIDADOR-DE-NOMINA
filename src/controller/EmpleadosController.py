@@ -4,75 +4,87 @@ sys.path.append("src")
 
 import psycopg2
 from model.Empleados import Empleado
-import secretConfg
+from DB import get_connection
+from dotenv import load_dotenv
+
+load_dotenv()  # Carga las variables de entorno desde el archivo .env
 
 class EmpleadosController:
     
+    @staticmethod
     def CrearTabla():
-        cursor = EmpleadosController.ObtenerCursor()
-        
-        with open( "sql/crear-Empleado.sql", "r") as archivo:
-            consulta = archivo.read()
-            
-        cursor.execute(consulta)
-        cursor.connection.commit()
-            
+        conn = get_connection()
+        cur = conn.cursor()
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS empleados (
+                id SERIAL PRIMARY KEY,
+                nombre VARCHAR(100) NOT NULL,
+                dni VARCHAR(20) NOT NULL UNIQUE,
+                sueldo NUMERIC(12,2) NOT NULL,
+                deducciones NUMERIC(12,2) DEFAULT 0,
+                neto NUMERIC(12,2) NOT NULL
+            );
+        """)
+        conn.commit()
+        cur.close()
+        conn.close()
+
+    @staticmethod
     def EliminarTabla():
-        cursor = EmpleadosController.ObtenerCursor()
-        cursor.execute("""DROP TABLE IF EXISTS empleados""")
-        cursor.connection.commit()
-        
+        conn = get_connection()
+        cur = conn.cursor()
+        cur.execute("DROP TABLE IF EXISTS empleados")
+        conn.commit()
+        cur.close()
+        conn.close()
+
+    @staticmethod
     def Insertar(empleado: Empleado):
-        cursor = EmpleadosController.ObtenerCursor()
-        cursor.execute(f"""insert into empleados (empleado_id, nombre, salario_base)
-                        values ('{empleado.empleado_id}', '{empleado.nombre}', '{empleado.salario_base}')""")
-        
-        cursor.connection.commit()
-        
-    def BuscarEmpleadoPorID(empleado_id):   
-        cursor = EmpleadosController.ObtenerCursor()
-        cursor.execute(f"""select empleado_id, nombre, salario_base
-        from empleados where empleado_id = '{empleado_id}'""")
-        
-        fila = cursor.fetchone()
-        print(f"Fila obtenida: {fila}")  # Para depuración
-        
-        if fila:  # Si la consulta devuelve una fila válida
-            # Convertir salario_base de Decimal a float
-            salario_base = float(fila[2])  # fila[2] es el salario_base
-            resultado = Empleado(fila[0], fila[1], salario_base)
-            return resultado
-        else:
-            print(f"No se encontró el empleado con ID {empleado_id}")  # Mensaje si no se encuentra
-            return None
-        
-    def actualizar_campo_empleado(empleado_id, campo, nuevo_valor):
-        cursor = EmpleadosController.ObtenerCursor()
-        
-        campos_validos = [
-        "empleado_id",
-        "nombre",
-        "salario_base"]
-        
-        if campo not in campos_validos:
-                raise ValueError(f"Campo inválido: {campo}")
+        conn = get_connection()
+        cur = conn.cursor()
+        cur.execute("""
+            INSERT INTO empleados (id, nombre, dni, sueldo, deducciones, neto)
+            VALUES (%s, %s, %s, %s, %s, %s)
+        """, (empleado.empleado_id, empleado.nombre, empleado.dni, empleado.salario_base, 0, empleado.salario_base))
+        conn.commit()
+        cur.close()
+        conn.close()
 
-        # Consulta dinámica (campo ya fue validado)
-        query = f"""
-        UPDATE empleados
-        SET {campo} = %s
-        WHERE empleado_id = %s;
-        """
-        cursor.execute(query, (nuevo_valor, empleado_id))
-        cursor.connection.commit()
-        
+    @staticmethod
+    def BuscarEmpleadoPorID(empleado_id):
+        conn = get_connection()
+        cur = conn.cursor()
+        cur.execute("SELECT id, nombre, dni, sueldo FROM empleados WHERE id = %s", (empleado_id,))
+        fila = cur.fetchone()
+        cur.close()
+        conn.close()
+        if fila:
+            return Empleado(
+                empleado_id=fila["id"],
+                nombre=fila["nombre"],
+                dni=fila["dni"],
+                salario_base=fila["sueldo"]
+            )
+        return None
 
-    def ObtenerCursor():
-        connection = psycopg2.connect(host=secretConfg.PGHOST, database=secretConfg.PGDATABASE, user=secretConfg.PGUSER, password=secretConfg.PGPASSWORD)
-        cursor = connection.cursor()
-        return cursor
-    
-        
+    @staticmethod
+    def ActualizarCampoEmpleado(empleado_id, campo, nuevo_valor):
+        conn = get_connection()
+        cur = conn.cursor()
+        cur.execute(f"UPDATE empleados SET {campo} = %s WHERE id = %s", (nuevo_valor, empleado_id))
+        conn.commit()
+        cur.close()
+        conn.close()
 
-    
-    
+    @staticmethod
+    def Eliminar(empleado_id):
+        conn = get_connection()
+        cur = conn.cursor()
+        cur.execute("DELETE FROM empleados WHERE id = %s", (empleado_id,))
+        conn.commit()
+        cur.close()
+        conn.close()
+
+
+
+

@@ -13,9 +13,19 @@ class ControladorNominas:
 
     def crear_tabla():
         cursor = ControladorNominas.ObtenerCursor()
-        with open("sql/crear-Nominas.sql", "r") as archivo:
-            consulta = archivo.read()
-        cursor.execute(consulta)
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS nominas (
+                empleado_id VARCHAR(50) PRIMARY KEY,
+                horas_extras NUMERIC(12, 2),
+                tarifa_hora_extra NUMERIC(12, 2),
+                otras_deducciones NUMERIC(12, 2),
+                deduccion_salud NUMERIC(12, 2),
+                deduccion_pension NUMERIC(12, 2),
+                total_deducciones NUMERIC(12, 2),
+                total_devengado NUMERIC(12, 2),
+                total_a_pagar NUMERIC(12, 2)
+            );
+        """)
         cursor.connection.commit()
 
     def EliminarTabla():
@@ -25,20 +35,21 @@ class ControladorNominas:
 
     def InsertarNomina(nomina: Nomina):
         cursor = ControladorNominas.ObtenerCursor()
-        cursor.execute(f"""insert into nominas (empleado_id, horas_extras, tarifa_hora_extra, otras_deducciones, deduccion_salud, deduccion_pension, total_deducciones, total_devengado, total_a_pagar)
-                        values ('{nomina.empleado_id}', '{nomina.horas_extras}', '{nomina.tarifa_hora_extra}', '{nomina.otras_deducciones}', '{nomina.deduccion_salud}', '{nomina.deduccion_pension}',
-                        '{nomina.total_deducciones}', '{nomina.total_devengado}', '{nomina.total_a_pagar}')""")
+        cursor.execute("""
+            INSERT INTO nominas (empleado_id, horas_extras, tarifa_hora_extra, otras_deducciones, deduccion_salud, deduccion_pension, total_deducciones, total_devengado, total_a_pagar)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """, (nomina.empleado_id, nomina.horas_extras, nomina.tarifa_hora_extra, nomina.otras_deducciones, nomina.deduccion_salud, nomina.deduccion_pension, nomina.total_deducciones, nomina.total_devengado, nomina.total_a_pagar))
         cursor.connection.commit()
 
     def BuscarNominaPorEmpleado(empleado_id: int):
         cursor = ControladorNominas.ObtenerCursor()
-        cursor.execute(f"""
-        SELECT empleado_id, horas_extras, tarifa_hora_extra, otras_deducciones,
-               deduccion_salud, deduccion_pension, total_deducciones,
-               total_devengado, total_a_pagar
-        FROM nominas
-        WHERE empleado_id = '{empleado_id}'
-        """)
+        cursor.execute("""
+            SELECT empleado_id, horas_extras, tarifa_hora_extra, otras_deducciones,
+                   deduccion_salud, deduccion_pension, total_deducciones,
+                   total_devengado, total_a_pagar
+            FROM nominas
+            WHERE empleado_id = %s
+        """, (empleado_id,))
         fila = cursor.fetchone()
         if fila is None:
             return None
@@ -64,7 +75,7 @@ class ControladorNominas:
         if campo not in campos_validos:
             raise ValueError(f"Campo inválido: {campo}")
         query = f"""
-        UPDATE Nominas
+        UPDATE nominas
         SET {campo} = %s
         WHERE empleado_id = %s;
         """

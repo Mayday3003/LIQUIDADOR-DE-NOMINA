@@ -54,9 +54,10 @@ def calcular_deducciones(salario_base, porcentaje_salud, porcentaje_pension, otr
     if otras_deducciones < 0:
         raise ErrorPorcentajeDeduccion("Las otras deducciones no pueden ser negativas")
     
-    deduccion_salud = (porcentaje_salud / 100) * salario_base
-    deduccion_pension = (porcentaje_pension / 100) * salario_base
-    return deduccion_salud + deduccion_pension + otras_deducciones
+    deduccion_salud = salario_base * (porcentaje_salud / 100)
+    deduccion_pension = salario_base * (porcentaje_pension / 100)
+    total_deducciones = deduccion_salud + deduccion_pension + otras_deducciones
+    return total_deducciones
 
 def calcular_salario_neto(total_devengado, total_deducciones):
     """
@@ -78,4 +79,3 @@ def calcular_salario_neto(total_devengado, total_deducciones):
 
 
 
-    
