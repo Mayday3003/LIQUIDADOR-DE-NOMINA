@@ -118,6 +118,22 @@ Abre un navegador web y navega a la siguiente URL:
 ```
 http://127.0.0.1:5000
 ```
+Despliegue en Render.com
+Para desplegar su aplicación Flask en Render.com , tena en cuenta lo siguiente:
+
+Cree un archivo requirements.txt en la raiz de su proyecto, donde liste los modulos que deben instalarse par apoder ejecutar su aplicación.
+Asegúrese de al menos incluir
+
+flask
+psycopg2
+El Build Command de su aplicación será el sugerido por Render:
+
+pip install -r requirements.txt
+
+Render requiere que la aplicación ejecute en el puerto 10000 por defecto, y que escuche en la dirección IP 0.0.0.0, para ello, especifique el siguiente Start Command para su aplicación:
+flask run -p 10000 -h 0.0.0.0
+
+Para los parámetros de conexión a la base de datos, Ingrese al menú Environnment -> Secret Files y cree un nuevo Secret File llamado SecretConfig.py y ponga dentro de él las variables de conexión de su base de datos
 
 4. Funcionalidades disponibles en la aplicación web:
 
